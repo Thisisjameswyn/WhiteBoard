@@ -1,0 +1,160 @@
+﻿Epicodus whiteboarding - 6/25/21
+Question #1: Turning Strings to URLs
+URLs cannot have spaces. Instead, all spaces in a string are replaced with %20. Write an algorithm that replaces all spaces in a string with %20.
+
+
+//take in one string input
+//convert to array using split(" ")
+//loop through array and push each element to new string with .join('+%20')
+//return string
+
+
+function convertUrl (inputString) {
+    let newArray = inputString.split(" ")
+    let outPutString = newArray.join("%20")
+    console.log(outPutString); //return
+}
+
+
+//take input string
+//evaluate if string is empty
+//if string is empty return ""
+//split to array
+//grab first index of array and push to string, add %20 to back of push
+//use remaining string to recursively continue - substring(1)
+//fifo - array needs to be reversed or i need to travel backwards along array
+//array.slice to return newArray to function
+
+
+const convertUrl = (inputString) => {
+  if (inputString === "") {
+        return "";
+  } else {
+      const newArray = inputString.split(" ")
+            const wordToPush = newArray.slice(newArray.length - 1)
+        const leftOverString = newArray.slice(newArray[0], newArray.length - 1).join(" ")
+        console.log(leftOverString)
+        console.log(wordToPush)
+            return convertUrl(leftOverString) + wordToPush + "%20";
+  }
+}
+
+
+
+
+Question #2: Array Deduping
+Write an algorithm that removes duplicates from an array. Do not use a function like filter() to solve this. Once you have solved the problem, demonstrate how it can be solved with filter(). Solve the problem with and without recursion.
+//take input array let myArray
+//use forEach to loop through elements and index locations
+//compare current element with index+1
+//if current element === index+1 element - remove index+1 element
+//take input array and loop through using forEach
+//evaluate if current element is equal to next element
+//if current element === then skip to next element
+//once next element is !=== then push current element
+
+
+
+
+function DedupeArray(array) {
+    let newArray = []
+New code ---->   //array.sort() 
+    array.forEach(function(element, index) {
+        if(element !== array[index + 1]) {
+            newArray.push(element)
+            }
+    });return(newArray)
+}
+
+
+*I realize this is wrong after seeing Michael’s solution.  I thought the array was ordered.  I should sort first.
+Question #3: Compressing Strings
+Write an algorithm that takes a string with repeated characters and compresses them, using a number to show how many times the repeated character has been compressed. For instance, aaa would be written as 3a. Solve the problem with and without recursion.
+//take in a string with repeated chars
+//convert to array
+//iterate through array and compare current to next element
+//if next element === currentElement then add to counter
+//else push element and counter
+//convert to string and return
+
+
+function CompressStrings(string) {
+    let evaluationArray = string.split("")
+    let myArray = []
+    let counter = 1
+    evaluationArray.forEach(function(element, index) {
+        if(element !== evaluationArray[index + 1]) {
+            if(counter === 1) {
+            myArray.push(element)
+            } else {
+            myArray.push(counter + element)
+        }
+        counter = 1
+        } else {
+        counter++
+    }
+    });console.log(myArray.join(""))
+}
+
+
+
+
+Question #4: Checking for Uniqueness
+Write an algorithm that determines whether all the elements in a string are unique. You may not convert the string into an array or use array methods to solve this problem. The algorithm should return a boolean.
+//take in single string - myString
+//use string includes with substring
+//grab initial string index location using string[0]
+//split substring using index location string.substring(1)
+//compare index 0 to substring;
+//if substring includes index 0 then return false
+//otherwise keep going and return true at the end
+//struggle with google fucking docs piece of shit
+//take in string
+//make substring at index 1....
+//going to have to use recursion
+//let myString = str.substring
+//for loop
+//handle conversion for upper and lower
+
+
+
+
+
+
+function CheckUnique(string) {
+    string = string.toLowerCase()
+    for(let i= 0; i < string.length; i++) {
+    let compVar = string[i]
+  let compString = string.substring(i + 1)
+        if(compString.includes(compVar)) {
+          return false
+        }
+    }return true
+}
+
+
+Question #5: Array Sorting
+Write an algorithm that sorts an array without using the sort() method. There are many different sorting algorithms - take the time to read about the following:
+//take in array input
+//grab the first item from array and loop through - first loop - j
+//use first item to compare against next item
+//if first item is larger than second item then hold first item in a var
+//swap items location with next item
+//swap next item with stored var
+//repeat until all items are ordered - second loop - i
+
+
+
+
+const sortIt = (myArray) => {
+   for (let i = 0; i < myArray.length; i++) {
+       for (let j = 0; j < myArray.length; j++) {
+           if (myArray[j] > myArray[j + 1]) {
+               const firstNum = myArray[j];
+               myArray[j] = myArray[j + 1];
+               myArray[j + 1] = firstNum ;
+           }
+       }
+   }
+   return myArray;
+};
